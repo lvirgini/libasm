@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/30 11:10:11 by lvirgini          #+#    #+#              #
-#    Updated: 2020/04/02 11:30:35 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/04/02 11:49:29 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ OBJ 	=	$(addprefix $(OBJ_DIR), $(SRC:%.s=%.o))
 CC = 		gcc
 
 CFLAG =		
-#-Wall -Werror -Wextra
+#-Wall -Werror -Wextra -g -fsanitize=address
  
 
 # ----------------- #
@@ -59,7 +59,7 @@ $(NAME):	$(OBJ)
 all:		${NAME}
 
 debug :		$(NAME)
-			$(CC) $(CFLAG) $(NAME) main.c -I .
+			gcc main.c -I ./ -l asm -L ./
 
 show	:
 			@echo "SRC_DIR : $(SRC_DIR)\n"
