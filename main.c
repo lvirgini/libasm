@@ -43,15 +43,19 @@ printf("\n ......-* STRLEN : *-...................\n\n");
 printf("\n ......-* STRCPY : *-...................\n\n");
 
 	char dst[20] = {0, };
+	char dst2[20] = {0, };
 
 	printf("src = chaine std : \n");
-	printf("\tstrcpy = %s\n", strcpy(dst, str_std));
+	printf("\tstrcpy = |%s|\n", strcpy(dst, str_std));
+	printf("\tft_strcpy = |%s|\n", ft_strcpy(dst2, str_std));
 
 	printf("src = chaine vide :  \n");
 	printf("\tstrcpy = |%s|\n", strcpy(dst, str_vide));
+	printf("\tft_strcpy = |%s|\n", ft_strcpy(dst2, str_vide));
 
-	printf("src = chaine vide :  \n");
-	printf("\tstrcpy = |%s|\n", strcpy(dst, str_long));
+	printf("src len > dst len : (segfault) \n");
+//	printf("\tstrcpy = |%s|\n", strcpy(dst, str_long));
+//	printf("\tft_strcpy = |%s|\n", ft_strcpy(dst2, str_long));
 	
 	return (0);
 }
