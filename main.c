@@ -42,15 +42,6 @@ printf("\n ......-* STRLEN : *-...................\n\n");
 
 printf("\n ......-* STRCPY : *-...................\n\n");
 
-//	char *dst_vide = str_vide;
-
-
-	
-//	char *dst_long = str_long;
-
-//	char *dst2_vide = str_vide;
-//	char *dst2_std = str_std;
-//	char *dst2_long = str_long;
 	char dst[20] = {0, };
 
 	printf("src = chaine std : \n");
@@ -59,22 +50,8 @@ printf("\n ......-* STRCPY : *-...................\n\n");
 	printf("src = chaine vide :  \n");
 	printf("\tstrcpy = |%s|\n", strcpy(dst, str_vide));
 
-		printf("src = chaine vide :  \n");
+	printf("src = chaine vide :  \n");
 	printf("\tstrcpy = |%s|\n", strcpy(dst, str_long));
-	/*
-	printf("\t  strlcpy  = %s\n\tft_strcpy.s = %s\n", strcpy(str_vide, str_std), strcpy(str_vide, dst2_vide));
 	
-	printf("src = chaine std , dst = chaine vide: \n");
-	printf("\t  strcpy  = %s\n\tft_strcpy.s = %s\n", strcpy(str_std, dst_vide), ft_strcpy(str_std, dst2_vide));
-	
-	printf("src = chaine std , dst = chaine longue: \n");
-	printf("\t  strcpy  = %s\n\tft_strcpy.s = %s\n", strcpy(str_long, dst_std), ft_strcpy(str_long, dst2_std));
-	
-	printf("src = chaine longue , dst = chaine std: \n");
-	printf("\t  strcpy  = %s\n\tft_strcpy.s = %s\n", strcpy(str_std, dst_long), ft_strcpy(str_long, dst2_long));
-*/
-	//printf("ft_strlen = %ld\nstrlen = %ld\n", ft_strlen(s), strlen(s));
-
-
 	return (0);
 }
