@@ -5,11 +5,12 @@ global			ft_strcpy
 ft_strcpy:
 			push	rbp
 			mov		rbp, rsp
-			mov		rax, rsi
+			mov		rax, rdi
 
 copy:
-			mov		rdi, rdi
-			cmp 	byte [rdi], 0
+			mov		rdx, [rsi]
+			mov		[rdi], rdx
+			cmp 	byte [rsi], 0
 			je		return
 			add		rdi, 1
 			add		rsi, 1
