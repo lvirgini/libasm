@@ -4,21 +4,17 @@
 #include <stdio.h>
 
 
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	if (n <= 0)
+		return (0);
+	return (!(*s1) || *s1 != *s2
+			? (unsigned char)*s1 - (unsigned char)*s2
+			: ft_strncmp(++s1, ++s2, --n));
+}
+
 int main()
 {
-	//char *dst;
-
-	//dst = ft_strcpy("lala", "prout");
-	//printf("%s\n", dst);
-	//printf("fuck\n");
-	//printf(".c = %d\n", arg_int_ret_c());
-	//printf(".s = %d\n", arg_int_ret());
-	//printf("fuck\n");
-	//int res = ft_addition(5, 45);
-	//printf("addition.s = %d\n", res);
-	//printf("addition.c = %d\n", ft_addition_c(5, 45));
-
-/* *** STRLEN *** */
 
 	//char *ptr_null = 0;
 	char *str_vide = "";
@@ -45,17 +41,35 @@ printf("\n ......-* STRCPY : *-...................\n\n");
 	char dst[20] = {0, };
 	char dst2[20] = {0, };
 
+	printf("dst2 = %p\ndst= %p\n", dst2, dst);
 	printf("src = chaine std : \n");
-	printf("\tstrcpy = |%s|\n", strcpy(dst, str_std));
-	printf("\tft_strcpy = |%s|\n", ft_strcpy(dst2, str_std));
+	printf("\tft_strcpy = |%s|	%p\n", ft_strcpy(dst2, str_std), dst2);
+	printf("\tstrcpy = |%s|	%p\n\n", strcpy(dst, str_std), dst);
 
 	printf("src = chaine vide :  \n");
-	printf("\tstrcpy = |%s|\n", strcpy(dst, str_vide));
-	printf("\tft_strcpy = |%s|\n", ft_strcpy(dst2, str_vide));
+	printf("\tft_strcpy = |%s| %p\n", ft_strcpy(dst2, str_vide), dst2);
+	printf("\tstrcpy = |%s| %p\n\n", strcpy(dst, str_vide), dst);
 
 	printf("src len > dst len : (segfault) \n");
 //	printf("\tstrcpy = |%s|\n", strcpy(dst, str_long));
 //	printf("\tft_strcpy = |%s|\n", ft_strcpy(dst2, str_long));
-	
+
+	printf("\n ......-* STRCPMP : *-...................\n\n");
+
+	printf("chaines identiques\n");
+	printf("%d = strcmp\n", strcmp(str_std, str_std));
+	printf("%d = ft_strcmp\n\n", ft_strcmp(str_std, str_std));
+
+	printf("chaines diff\n");
+	printf("%d = strcmp\n", strcmp(str_std, str_long));
+	printf("%d = ft_strcmp\n\n", ft_strcmp(str_std, str_long));
+
+	printf("chaines diff dont une vide\n");
+	printf("%d = strcmp\n", strcmp( "", str_std));
+	printf("%d = ft_strcmp\n\n", ft_strcmp("", str_std));
+
+	printf("chaines diff dont une vide\n");
+	printf("%d = strcmp\n", strcmp(str_std, ""));
+	printf("%d = ft_strcmp\n\n", ft_strcmp(str_std, ""));
 	return (0);
 }

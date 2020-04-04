@@ -1,6 +1,6 @@
-global			ft_strlen
+			global	ft_strlen
 
-			section		.txt
+			section	.txt
 
 ft_strlen:
 			push	rbp

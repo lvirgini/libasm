@@ -1,6 +1,6 @@
-global			ft_strcpy
+			global	ft_strcpy
 
-		section		.txt
+			section	.txt
 
 ft_strcpy:
 			push	rbp

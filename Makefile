@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/30 11:10:11 by lvirgini          #+#    #+#              #
-#    Updated: 2020/04/03 17:14:08 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/04/04 12:56:29 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_DIR = 	srcs/
 vpath %.s $(foreach dir, $(SRC_DIR), $(dir):)
 
 SRCS =		ft_strlen.s \
+			ft_strcmp.s \
 			ft_strcpy.s 
 			
 
