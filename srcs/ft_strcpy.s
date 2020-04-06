@@ -5,11 +5,11 @@
 ft_strcpy:
 			push	rbp
 			mov		rbp, rsp
-			mov		rax, rdi
+			mov		rax, rdi		;rdi = *dst
 
 copy:
-			mov		rdx, [rsi]
-			mov		[rdi], rdx
+			mov		rdx, [rsi]		;rsi = *src
+			mov		[rdi], rdx		
 			cmp 	byte [rsi], 0
 			je		return
 			add		rdi, 1

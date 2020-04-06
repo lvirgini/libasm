@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 15:12:38 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/04/06 17:30:04 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/04/06 17:32:11 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdint.h>
 
 size_t		ft_strlen(const char *s);
+char 		*ft_strdup(const char *s);
 char		*ft_strcpy(char *dest, const char *src);
 int			ft_strcmp(const char *s1, const char *s2);
 ssize_t		ft_write(int fd, const void *buf, size_t count);
