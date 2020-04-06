@@ -8,6 +8,17 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+/*
+** dans gdb set disassembly-flavor intel
+**
+** Avec GCC, l'option -Wpadded pour voir si il y a besoin de restructurer
+** des structure afin qu'elle prennent le moins de place. 
+**
+** objdump -s a.out
+**
+** strace df -h  : montre les appels systems
+*/
+
 int main()
 {
 
