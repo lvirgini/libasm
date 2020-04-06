@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/30 11:10:11 by lvirgini          #+#    #+#              #
-#    Updated: 2020/04/04 17:31:51 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/04/06 17:03:59 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ vpath %.s $(foreach dir, $(SRC_DIR), $(dir):)
 SRCS =		ft_strlen.s \
 			ft_strcmp.s \
 			ft_strcpy.s \
-			ft_write.s
+			ft_write.s	\
+			ft_read.s
 			
 
 SRC		= 	$(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.s), $(notdir $(file))))
