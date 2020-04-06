@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/30 11:10:11 by lvirgini          #+#    #+#              #
-#    Updated: 2020/04/04 12:56:29 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/04/04 17:31:51 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ vpath %.s $(foreach dir, $(SRC_DIR), $(dir):)
 
 SRCS =		ft_strlen.s \
 			ft_strcmp.s \
-			ft_strcpy.s 
+			ft_strcpy.s \
+			ft_write.s
 			
 
 SRC		= 	$(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.s), $(notdir $(file))))
@@ -60,7 +61,7 @@ $(NAME):	$(OBJ)
 all:		${NAME}
 
 debug :		$(NAME)
-			@$(CC) $(CFLAG) main.c -I . -l asm -L .
+			@$(CC)  main.c -I . -l asm -L .
 			@echo "debug with main.c Done !"
 
 show	:
