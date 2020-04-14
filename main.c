@@ -82,10 +82,10 @@ printf("\n ......-*  STRCPY  *-...................\n\n");
 	printf("\n ......-*  WRITE : *-...................\n\n");
 	errno = 0;
 	printf("| ft_write = %ld\n", ft_write(1, ptr_null, 25));
-	printf("errno = %d<_n");
+	printf("errno = %d\n", errno);
 	errno = 0;
 	printf("| write = %ld\n", write(1, ptr_null, 25));
-	printf("errno = %d<_n");
+	printf("errno = %d\n", errno);
 
 	printf("adresse str = %p, %s\n", str_std, str_std);
 	printf("| write = %ld\n", write(1, str_std, 25));
@@ -118,12 +118,13 @@ printf("\n ......-*  STRCPY  *-...................\n\n");
 
 	errno = 0;
 	printf("errno = %d\n", errno);
-	printf("read = %d |%s|\n", read(fd, ptr_null, 15), buf);
+	printf("ft_read = %d |%s|\n\n", read(fd, ptr_null, 15), buf2);
 	printf("errno = %d\n", errno);
 	errno = 0;
 	printf("errno = %d\n", errno);
-	printf("ft_read = %d |%s|\n\n", read(fd, ptr_null, 15), buf2);
+	printf("read = %d |%s|\n", read(fd, ptr_null, 15), buf);
 	printf("errno = %d\n", errno);
+
 
 	close(fd);
 
@@ -143,15 +144,20 @@ printf("\n ......-*  STRCPY  *-...................\n\n");
 	free(str_dup1);
 	free(str_dup2);
 
-	errno = 0;
-	printf("| ft_write = %ld\n", ft_write(1, ptr_null, 25));
-	printf("errno = %d\n", errno);
-	errno = 0;
-	printf("| write = %ld\n", write(1, ptr_null, 25));
-	printf("errno = %d\n", errno);
-
-
 	printf("\n ......-*  ATOI_BASE : *-...................\n\n");
-	printf("%d\n",ft_atoi_base("123", "azerty"));
+	printf("%d\n",ft_atoi_base("   azerty", "azerty"));
+
+	/* restant a faire en asm:
+	while (str[i])
+	{
+		j = 0;
+		while (base[j] && str[i] != base[j])
+			++j;
+		if (base[j] != '\0')
+			res = res * len + j;
+		++i;
+	}
+	return res * neg
+	*/
 	return (0);
 }
