@@ -2,9 +2,9 @@ extern 	malloc
 extern	ft_strlen
 extern	ft_strcpy
 
-		global	ft_strdup
+			global	ft_strdup
 
-		section .txt
+			section .txt
 
 ft_strdup:
 			mov		r9, rdi		;rdi = *src

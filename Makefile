@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/30 11:10:11 by lvirgini          #+#    #+#              #
-#    Updated: 2020/04/06 17:33:11 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/04/14 16:05:55 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,10 @@ SRCS =		ft_strlen.s \
 			ft_strcpy.s \
 			ft_strdup.s \
 			ft_write.s	\
-			ft_read.s
+			ft_read.s	\
+			ft_atoi_base.s
+
+
 			
 
 SRC		= 	$(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.s), $(notdir $(file))))
