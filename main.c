@@ -145,19 +145,9 @@ printf("\n ......-*  STRCPY  *-...................\n\n");
 	free(str_dup2);
 
 	printf("\n ......-*  ATOI_BASE : *-...................\n\n");
-	printf("%d\n",ft_atoi_base("   azerty", "azerty"));
+	printf("%d\n",ft_atoi_base("       ++---1100d0", "01"));
+	printf("%d\n",ft_atoi_base("       ---abc", "0123456789abcdef"));
 
-	/* restant a faire en asm:
-	while (str[i])
-	{
-		j = 0;
-		while (base[j] && str[i] != base[j])
-			++j;
-		if (base[j] != '\0')
-			res = res * len + j;
-		++i;
-	}
-	return res * neg
-	*/
+	
 	return (0);
 }
