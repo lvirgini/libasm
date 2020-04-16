@@ -19,7 +19,7 @@
 **
 ** strace df -h  : montre les appels systems
 */
-
+/*
 int main()
 {
 
@@ -145,9 +145,81 @@ printf("\n ......-*  STRCPY  *-...................\n\n");
 	free(str_dup2);
 
 	printf("\n ......-*  ATOI_BASE : *-...................\n\n");
+
+	printf("%d\n",ft_atoi_base("       ++---1100d0", "01 456"));
+	printf("%d\n",ft_atoi_base("       ++---1100d0", "01+456"));
+	printf("%d\n",ft_atoi_base("       ++---1100d0", "01-56"));
+	printf("%d\n",ft_atoi_base("       ++---az100d0", "01-56"));
 	printf("%d\n",ft_atoi_base("       ++---1100d0", "01"));
+	printf("%d\n",ft_atoi_base("       ++--1100d0", "01"));
 	printf("%d\n",ft_atoi_base("       ---abc", "0123456789abcdef"));
+	
 
 	
+
+	return (0);
+}*/
+/*int		ft_list_size(t_list *lst)
+{
+	unsigned int i;
+
+	i = 0;
+	while (lst && i++)
+		lst = lst->next;
+	return (i);
+}*/
+
+t_list		*ft_lstnew(void *content)
+{
+	t_list *l;
+
+	if (!(l = (t_list *)malloc(sizeof(l))))
+		return (NULL);
+	l->data = content;
+	l->next = NULL;
+	return (l);
+}
+
+int main()
+{
+
+    int a = 5;
+    int b = 10;
+	int c = 2;
+	int ret = 0;
+
+
+	t_list *next;
+    t_list *t = ft_lstnew(&a);
+	printf("t :: data = %d,  next = %d\n\n", *(int *)(t)->data, t->next);;
+
+	ft_list_push_front(&t, &b);
+	printf("new t :: data = %d,  next = %d\n", *(int *)(t)->data, t->next);
+	printf("new t :: t->next->data = %d,  t->next->next = %d\n\n", *(int *)(t)->next->data, t->next->next);
+	
+	ft_list_push_front(&t, &c);
+	printf("2 new t :: data = %d,  next = %d\n", *(int *)(t)->data, t->next);
+	printf("2 new t :: t->next->data = %d,  t->next->next = %d\n\n", *(int *)(t)->next->data, t->next->next);
+	
+	printf("t = %d  &t = %d\n", t, &t);
+	printf("&data = %d,  &next = %d, &b = %d  &a = %d\n", &(t->data), &(t->next), &b, &a);
+	printf("data = %d,  next = %d\n", t->data, t->next);
+   
+    int len = ft_list_size(t);
+    printf("%d\n", len);
+
+	int (*cmp)(const char *, const char *);
+	cmp = &(ft_strcmp);
+	ret = ft_list_sort(&t, cmp);
+	printf("%d\n", ret);
+
+	printf("2 new t :: data = %d,  next = %d\n", *(int *)(t)->data, t->next);
+	printf("2 new t :: t->next->data = %d,  t->next->next = %d\n\n", *(int *)(t)->next->data, t->next->next);
+	
+	printf("t = %d  &t = %d\n", t, &t);
+	printf("&data = %d,  &next = %d, &b = %d  &a = %d\n", &(t->data), &(t->next), &b, &a);
+	printf("data = %d,  next = %d\n", t->data, t->next);
+   
+	//(*cmp)(list_ptr->data, other_list_ptr->data)
 	return (0);
 }

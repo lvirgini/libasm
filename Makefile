@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/30 11:10:11 by lvirgini          #+#    #+#              #
-#    Updated: 2020/04/14 16:05:55 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/04/16 14:08:17 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,10 @@ SRCS =		ft_strlen.s \
 			ft_strdup.s \
 			ft_write.s	\
 			ft_read.s	\
-			ft_atoi_base.s
+			ft_atoi_base.s \
+			ft_list_size.s \
+			ft_list_sort.s \
+			ft_list_push_front.s \
 
 
 			
