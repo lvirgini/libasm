@@ -1,25 +1,21 @@
-extern __errno_location
+extern 	__errno_location
 
-			global	ft_write
+	global	ft_write
+	section	.txt
 
-			section	.txt
+ft_write:								; rdx have already the len			
+			mov		rax, 1				; syscall nb for write in x64  / 4 for x32
+			mov		rbx, rdi			; fd
+			mov		rcx, rsi			; string address
+			syscall						; int 0x80 sur x32
 
-ft_write:							; rdx have already the len					
-			mov		rax, 4			; syscall nb for write
-			mov		rbx, rdi		; fd
-			mov		rcx, rsi		; string address
-			syscall					; int 0x80 sur 32b
 			cmp		rax, 0
-			jl		syscall_error
-			mov 	rax, 1          ; sys exit
-			mov		rbx, 0
-			syscall	
+			jl		.syscall_error		; if return is negatif	
 			ret
 
-syscall_error:
+.syscall_error:
    			neg  	rax
-			mov		rdx, rax
-			call	__errno_location
-			mov		[rax], rdx
-    		mov		rax, -1
+			mov		rdx, rax	
+			call	__errno_location	; save positive error return in errno
+    		mov		rax, -1	
     		ret

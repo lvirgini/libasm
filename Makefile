@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/30 11:10:11 by lvirgini          #+#    #+#              #
-#    Updated: 2020/04/16 14:08:17 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/04/21 18:03:33 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRCS =		ft_strlen.s \
 			ft_atoi_base.s \
 			ft_list_size.s \
 			ft_list_sort.s \
-			ft_list_push_front.s \
+			ft_list_remove_if.s \
+			ft_list_push_front.s 
 
 
 			
@@ -69,7 +70,7 @@ $(NAME):	$(OBJ)
 all:		${NAME}
 
 debug :		$(NAME)
-			@$(CC)  main.c -I . -l asm -L .
+			$(CC)  main.c -I . -l asm -L .
 			@echo "debug with main.c Done !"
 
 show	:

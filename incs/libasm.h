@@ -6,7 +6,7 @@
 /*   By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 15:12:38 by lvirgini          #+#    #+#             */
-/*   Updated: 2020/04/16 14:15:16 by lvirgini         ###   ########.fr       */
+/*   Updated: 2020/04/17 10:11:18 by lvirgini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ struct 		s_list
 int			ft_atoi_base(char *str,char *base);
 void		ft_list_push_front(t_list **begin_list,void*data);
 int			ft_list_size(t_list *begin_list);
-int			ft_list_sort(t_list **begin_list,int(*cmp)());
+int	/*void*/		ft_list_sort(t_list **begin_list,int(*cmp)());
+int	/*void*/		ft_list_remove_if(t_list **begin_list,void*data_ref,
+								int(*cmp)(), void(*free_fct)(void*));
 #endif
