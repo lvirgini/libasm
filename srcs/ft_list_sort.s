@@ -2,40 +2,54 @@ extern ft_list_size
 
 		global	ft_list_sort
 		section	.txt
-										;  RDI  = &t
-										; [RDI] = t
+										;  RDI  = list
+										; [RDI] = *list 
 										; RSI = &cmp
 ft_list_sort:
-			cmp		rdi, 0				; verif if list doesn t exist
+			push	r8
+			push	r9					; save registers before use
+			push	r10					
+			push	r11
+			push	r12
+
+			mov		r8, rsi				; r8 = &cmp
+			mov		r9, [rdi]			; r9 = *list
+
+.cmp_loop_1:
+			cmp		r9, 0				; if *list is Null, stop
 			je		.return
-			mov		rbx, rdi			; RBX = **first index
-			mov		r8, rsi				; R8  = *cmp
-			mov		rdi, [rbx]			; RDI = t, &data  [RDI] = data 
-			call	ft_list_size
-			mov		rcx, rax			; RCX =  list size
+			mov		r10, [r9 + 8]		; r10 = *list->next
 
-.compare:
-			mov		rdi, [rbx]			; RDI = t, &data  [RDI] = data 
-			mov		rsi, [rdi + 8]		; RDI + 8 = &next  [RDI + 8] = next
-			
-			;mov		rax, [rdi]
-			;ret
-			call 	r8
-			cmp		rax, 0
-			jnl		.change_place
+.cmp_loop_2:
+			cmp		r10, 0				; if *next is Null
+			je		.get_next_loop_1	; inc *list
 
-.next:		add		rdi, 8
-			add 	rsi, 8
-			cmp		rsi, 0
-			sub		rcx, 1
+			mov		rdi, [r9]			; rdi = *list->data
+			mov		rsi, [r10]			; rsi = *next->data
+			call	r8					; call cmp
+
+			cmp		rax, 0				; if <= 0 next ++
+			jle		.get_next_loop_2
+
+			mov		r11, [r9]			; else exchange both data
+			mov		r12, [r10]
+			mov		[r9], r12
+			mov		[r10], r11
 
 
-.change_place:
-			mov		rdx, [rdi]
-			mov		rcx, [rsi]
-			mov		[rsi], rdx
-			mov		[rdi], rcx
-			add		rcx, 1
+.get_next_loop_2:
+			mov		r10, [r10 + 8]		; *next = *next->next
+			jmp		.cmp_loop_2
+
+
+.get_next_loop_1:
+			mov		r9, [r9 + 8]		; *list = *list->next
+			jmp		.cmp_loop_1
 
 .return:
+			pop		r8
+			pop		r9					; restore registers used
+			pop		r10
+			pop		r11
+			pop		r12
 			ret

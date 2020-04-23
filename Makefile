@@ -6,7 +6,7 @@
 #    By: lvirgini <lvirgini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/30 11:10:11 by lvirgini          #+#    #+#              #
-#    Updated: 2020/04/21 18:03:33 by lvirgini         ###   ########.fr        #
+#    Updated: 2020/04/23 16:18:08 by lvirgini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,10 +36,7 @@ SRCS =		ft_strlen.s \
 			ft_list_push_front.s 
 
 
-			
-
 SRC		= 	$(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.s), $(notdir $(file))))
-#SRC 	=	$(foreach src, $(SRCS), $(SRC_DIR)$(src))
 OBJ 	=	$(addprefix $(OBJ_DIR), $(SRC:%.s=%.o))
 
 
@@ -51,7 +48,6 @@ OBJ 	=	$(addprefix $(OBJ_DIR), $(SRC:%.s=%.o))
 CC = 		gcc
 
 CFLAG =		-Wall -Werror -Wextra -g
-#-g -fsanitize=address
  
 
 # ----------------- #
@@ -84,6 +80,8 @@ show	:
 			@echo "SRC :$(foreach file, $(SRC),\n\t$(file))\n"
 			@echo "OBJ :$(foreach file, $(OBJ),\n\t$(file))\n"
 
+
+bonus	:	all
 
 # ----------------- #
 # 		CLEAN		#

@@ -56,9 +56,31 @@ void		ft_list_remove_if2(t_list **begin_list,void*data_ref,
 		else
 			begin_list = &(*begin_list)->next;
 	}
+}
 
+void		ft_list_sort2(t_list **begin,int(*cmp)())
+{
+		t_list *next;
+		void *tmp;
 
+		tmp = NULL;
 
+		while (*begin)
+		{
+			
+			next = (*begin)->next;
+			while (next)
+			{
+				if (cmp((*begin)->data, next->data) > 0)
+				{
+					tmp = next->data;
+					next->data = (*begin)->data;
+					(*begin)->data = tmp;
+				}
+				next = next->next;
+			}
+			begin = &(*begin)->next;
+		}
 }
 
 
@@ -328,20 +350,15 @@ printf("\n ......-*  List_remove_if : *-...................\n\n");
 
 printf("\n ......-*  List_sort : *-...................\n\n");
 
-	/*ret = ft_list_sort(&t, cmp);
-	printf("%d\n", ret);
 
-	printf("list sort :: data = %d,  next = %d\n", *(int *)(t)->data, t->next);
-	printf("list sort :: t->next->data = %d,  t->next->next = %d\n\n", *(int *)(t)->next->data, t->next->next);
-	printf("list sort :: t->next->next->data = %d,  t->next->next->next = %d\n\n", *(int *)(t)->next->next->data, t->next->next->next);
+	//ft_list_sort2(&t, cmp);
+	ft_list_sort(&t, cmp);
+	print_list(t);
 
-	printf("t = %d  &t = %d\n", t, &t);
-	printf("&data = %d,  &next = %d, &b = %d  &a = %d\n", &(t->data), &(t->next), &b, &a);
-	printf("data = %d,  next = %d\n", t->data, t->next);
-   
-	//(*cmp)(list_ptr->data, other_list_ptr->data)
+	//ft_list_sort2(&lst, cmp);
+	ft_list_sort(&lst, cmp);
+	print_list(lst);
 
 
-
-	*/return (0);
+	return (0);
 }
