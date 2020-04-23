@@ -6,6 +6,7 @@ extern	ft_strcpy
 	section .txt
 
 ft_strdup:
+			push 	r9			; push register for use it
 			mov		r9, rdi		; save address src
 			call 	ft_strlen
 			add		rax, 1		; rax = len, + 1 for malloc
@@ -15,9 +16,12 @@ ft_strdup:
 			je		.ptr_null
 			mov		rdi, rax	; rdi = rax = address ptr malloc
 			mov		rsi, r9		; rsi = address src
-			call	ft_strcpy	
-			ret
+			call	ft_strcpy
+			jmp		.return
 
 .ptr_null:
 			xor 	rax, rax
-			ret	
+
+.return:
+			pop		r9			; restore register after use
+			ret

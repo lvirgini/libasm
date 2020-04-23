@@ -10,12 +10,14 @@ ft_read:
 			syscall						; int 0x80 for x32
 
 			cmp		rax, 0
-			jl		.syscall_error		; if return is negatif
+			jl		.syscall_error		; if return is negatif	
 			ret
 
 .syscall_error:
    			neg  	rax
 			mov		rdx, rax
-			call	__errno_location	; save positive error return in errno
-    		mov		rax, -1
+			call	__errno_location 
+			mov		[rax], rdx			; save positive error in errno_location
+
+    		mov		rax, -1				; return -1
     		ret

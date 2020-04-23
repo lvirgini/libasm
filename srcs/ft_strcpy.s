@@ -2,8 +2,6 @@
 	section	.txt
 
 ft_strcpy:
-			push	rbp
-			mov		rbp, rsp
 			mov		rax, rdi		; rdi = dst 
 
 .copy:
@@ -16,5 +14,4 @@ ft_strcpy:
 			jmp		.copy
 
 .return:
-			pop rbp
 			ret

@@ -2,8 +2,6 @@
 	section	.txt
 
 ft_strlen:
-			push	rbp
-			mov		rbp, rsp
 			xor		rax, rax				; rax = 0
 
 .loop:	
@@ -12,6 +10,5 @@ ft_strlen:
 			add		rax, 1					; then rax ++
 			jmp		.loop
 
-.return:		
-			pop		rbp
+.return:
 			ret

@@ -20,6 +20,47 @@
 ** strace df -h  : montre les appels systems
 */
 
+void	ft_free_data(void * data)
+{
+}
+
+
+void		print_list(t_list *lst)
+{
+	int i = 0;
+
+	//printf("&list = %p\n list = %llx\n", lst, lst);
+	while(lst && ++i)
+	{
+		printf("%d = %p : data = %s\t &next : %p  next = %llx\n", i, lst->data, lst->data, &lst->next, lst->next);
+		lst = lst->next;
+	}
+	printf("\n");
+}
+
+void		ft_list_remove_if2(t_list **begin_list,void*data_ref,
+								int(*cmp)(), void(*free_fct)(void*))
+{
+	t_list	*save_next;
+
+	while (*begin_list)
+	{
+		if (cmp(data_ref, (*begin_list)->data) == 0)
+		{	
+			free_fct((*begin_list)->data);
+			save_next = (*begin_list)->next;
+			free(*begin_list);
+			*begin_list = save_next;
+			begin_list = &(*begin_list);
+		}
+		else
+			begin_list = &(*begin_list)->next;
+	}
+
+
+
+}
+
 
 t_list		*ft_lstnew(void *content)
 {
@@ -34,12 +75,6 @@ t_list		*ft_lstnew(void *content)
 	return (l);
 }
 
-
-void	ft_free_data(void * data)
-{
-	if (data)
-		free(data);
-}
 
 
 int main()
@@ -128,29 +163,30 @@ printf("\n ......-*  STRCPY  *-...................\n\n");
 	printf("pointeur Null :\n");
 	errno = 0;
 	ret_write = ft_write(1, ptr_null, 25);
-	printf("| ft_write\t= %ld\t errno = %d\n", ret_write, errno);
+	printf("| ft_write  \t= %ld\t errno = %d\n", ret_write, errno);
+
 	errno = 0;
 	ret_write = write(1, ptr_null, 25);
 	printf("|    write  \t= %ld\t errno = %d\n\n", ret_write, errno);
 
 
-	printf("\"str_std\" : size = 5 \n");
+	printf("\"str_std\" : \n");
 	errno = 0;
-	ret_write = write(1, "str_std", 5);
+	ret_write = write(1, str_std, strlen(str_std));
 	printf("|    write  \t= %ld\t errno = %d\n", ret_write, errno);
 
 	errno = 0;
-	ret_write = ft_write(1, "str_std", 5);
+	ret_write = ft_write(1, str_std, ft_strlen(str_std));
 	printf("| ft_write \t= %ld\t errno = %d\n\n", ret_write, errno);
 
 
 	printf("str standard : size > len \n");
 	errno = 0;
-	ret_write = write(1, str_std, 25);
+	ret_write = write(1, str_std, 28);
 	printf("|    write  \t= %ld\t errno = %d\n", ret_write, errno);
 
 	errno = 0;
-	ret_write = ft_write(1, str_std, 25);
+	ret_write = ft_write(1, str_std, 28);
 	printf("| ft_write  \t= %ld\t errno = %d\n\n", ret_write, errno);
 
 
@@ -172,29 +208,37 @@ printf("\n ......-*  STRCPY  *-...................\n\n");
 	int fd = open("main.c", O_RDONLY);
 	char buf[20] = {0, };
 	char buf2[20] = {0, };
+	int  ret_read = 0;
 
 	printf("fd = %d\n", fd);
-	printf("   read ptr null = %d |%s|\n", read(fd, ptr_null, 15), buf);
-	printf("ft_read ptr null = %d |%s|\n\n", read(fd, ptr_null, 15), buf2);
 
-	printf("   read fd -1 = %d |%s|\n", read(-1, buf, 15), buf);
-	printf("ft_read fd -1 = %d |%s|\n\n", read(-1, buf2, 15), buf2);
-	
-	printf("   read fd 75 = %d |%s|\n", read(75, buf, 15), buf);
-	printf("ft_read fd 75 = %d |%s|\n\n", read(75, buf2, 15), buf2);
+	errno = 0;
+	ret_read = read(fd, ptr_null, 15);
+	printf("   read ptr null = %d |%s|	errno = %d\n", ret_read, buf, errno);
+	errno = 0;
+	ret_read = ft_read(fd, ptr_null, 15);
+	printf("ft_read ptr null = %d |%s|	errno = %d\n\n", ret_read, buf2, errno);
+
+
+	errno = 0;
+	ret_read = read(-1, buf, 15);
+	printf("   read fd -1 = %d |%s|	errno = %d\n", ret_read, buf, errno);
+	errno = 0;
+	ret_read = ft_read(-1, buf, 15);
+	printf("ft_read fd -1 = %d |%s|	errno = %d\n\n", ret_read, buf2, errno);
+
+
+	errno = 0;
+	ret_read =  read(75, buf, 15);
+	printf("   read fd 75 = %d |%s|	errno = %d\n",ret_read, buf, errno);
+	errno = 0;
+	ret_read = ft_read(75, buf2, 15);
+	printf("ft_read fd 75 = %d |%s|	errno = %d\n\n",ret_read , buf2, errno);
+
 
 	printf("   read = %d |%s|\n", read(fd, buf, 15), buf);
-	printf("ft_read = %d |%s|\n\n", read(fd, buf2, 15), buf2);
+	printf("ft_read = %d |%s|\n\n", ft_read(fd, buf2, 15), buf2);
 
-	errno = 0;
-	printf("errno = %d\n", errno);
-	printf("ft_read = %d |%s|\n", read(fd, ptr_null, 15), buf2);
-	printf("errno = %d\n\n", errno);
-
-	errno = 0;
-	printf("errno = %d\n", errno);
-	printf("read = %d |%s|\n", read(fd, ptr_null, 15), buf);
-	printf("errno = %d\n", errno);
 
 	close(fd);
 
@@ -242,44 +286,34 @@ printf("\n ......-*  STRCPY  *-...................\n\n");
 
 	printf("\n ......-*  List_Push_Front + list size : *-...................\n\n");
 
-    char *a = "25";
-    char *b = "50";
-	char *c = "10";
-	int ret = 0;
-	int len = 0;
+
+    t_list *t = ft_lstnew("lst new");
+	print_list(t);
+	printf("list size = %d\n\n", ft_list_size(t));
+
+	ft_list_push_front(&t, "front 1er");
+	print_list(t);
+	printf("list size = %d\n\n", ft_list_size(t));
+
+	ft_list_push_front(&t, "front 2eme");
+	print_list(t);
+	printf("list size = %d\n\n", ft_list_size(t));
 
 
-	t_list *next;
-    t_list *t = ft_lstnew(a);
-	printf("t :: data = %d,  next = %d\n", *(char *)(t)->data, t->next);;
-	len = ft_list_size(t);
-	printf("list size = %d\n\n", len);
-
-	ft_list_push_front(&t, b);
-	printf("push front 1 :: data = %d,  next = %d\n", *(char *)(t)->data, t->next);
-	printf("push front 1 :: t->next->data = %d,  t->next->next = %d\n", *(int *)(t)->next->data, t->next->next);
-	len = ft_list_size(t);
-	printf("list size = %d\n\n", len);
-
-	ft_list_push_front(&t, c);
-	printf("push front 2 :: data = %d,  next = %d\n", *(char *)(t)->data, t->next);
-	printf("push front 2 :: t->next->data = %d,  t->next->next = %d\n", *(int *)(t)->next->data, t->next->next);
-	printf("push front 2 :: t->next->next->data = %d,  t->next->next->next = %d\n", *(int *)(t)->next->next->data, t->next->next->next);
-	len = ft_list_size(t);
-	printf("list size = %d\n\n", len);
 
 printf("\n ......-*  List_remove_if : *-...................\n\n");
 
+	t_list *lst = NULL;
 
-	printf("list before :: data = %d,  next = %d\n", *(int *)(t)->data, t->next);
-	printf("list before :: t->next->data = %d,  t->next->next = %d\n", *(int *)(t)->next->data, t->next->next);
-	printf("list before :: t->next->next->data = %d,  t->next->next->next = %d\n\n", *(int *)(t)->next->next->data, t->next->next->next);
+	ft_list_push_front(&lst, "dernier");
+	ft_list_push_front(&lst, "nana");
+	ft_list_push_front(&lst, "troisieme");
+	ft_list_push_front(&lst, "deuxieme");
+	ft_list_push_front(&lst, "nana");
+	ft_list_push_front(&lst, "premier");
+	printf("list size = %d\n\n", ft_list_size(lst));
+	print_list(lst);
 
-	printf("t = %d  &t = %d\n", t, &t);
-	printf("&data = %d,  &next = %d, &b = %d  &a = %d\n", &(t->data), &(t->next), &b, &a);
-	printf("data = %d,  next = %d\n", t->data, t->next);
-   	printf("&next-data = %d,  &next-next = %d, &b = %d  &a = %d\n", &(t->next->data), &(t->next->next), &b, &a);
-	printf("next-data = %d,  next-next = %d\n", t->next->data, t->next->next);
 
 	int (*cmp)(const char *, const char *);
 	cmp = &(ft_strcmp);
@@ -287,9 +321,10 @@ printf("\n ......-*  List_remove_if : *-...................\n\n");
 	void (*free_fct)(void *);
 	free_fct = &(ft_free_data);
 	
-	ret = ft_list_remove_if(&t, &b, cmp, free_fct);
-	printf("%d\n", ret);
 
+	// ft_list_remove_if2(&lst, "nana", cmp, free_fct);
+	ft_list_remove_if(&lst, "nana", cmp, free_fct);
+	print_list(lst);
 
 printf("\n ......-*  List_sort : *-...................\n\n");
 

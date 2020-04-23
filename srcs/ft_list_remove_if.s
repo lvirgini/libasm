@@ -3,78 +3,61 @@ extern free
 		global	ft_list_remove_if
 		section .txt
 
-ft_list_remove_if:						; RDI = **list
-										; [RDI] = *list
-										; RSI = data_to_remove
-										; RDX = ft_cmp
-										; RCX = ft_free_data
+ft_list_remove_if:							; RDI = list
+											; [RDI] = *list ou &(**list) ou &(*list)->data
+											; [[RDI]] = *list->data
+													;mov	r, [rdi] 	then mov r, [r]
 
-				;cmp 	rdi, 0
-				;je		.return
-				
-				;mov		r9, [rdi]			; save  *list = &data
-				mov		r9 , rdi				; save **list = &list
-				mov		r11, rsi			; save data_to_remove
+											; [[RDI] + 8] = *list->next 
+													;mov	r, [rdi] 	then mov rax, [r + 8]
+
+											; RSI = data_to_remove
+											; RDX = ft_cmp
+											; RCX = ft_free_data
+				push	r10
+				push	r11
+				push	r12
+				push 	r13					; push registers before use them
+				push	r14
+				push 	r15
+
+				mov		r13, rdi			; save list
+				mov		r11, rsi			; save data to remove
 				mov		r12, rdx			; save ft_cmp
-				
-.compare:	
-				cmp		r9 , 0 				; if list is NULL
+				mov		r14, rcx			; save free
+
+.compare:
+				mov		r10, [r13]			; r10 = *list
+				cmp		r10, 0				; if *list is Null stop
 				je		.return
 
-				mov		rdi, [r9]			; rdi = &data
-				mov		rdi, [rdi]			; rdi = data
-				call 	rdx					; call ft_cmp
-				mov		rdx, r12			; restore ft_cmp
-				mov		rsi, r11			; restore data_to_remove
-				cmp		rax, 0				; if data = data_to_remove
-				je		.remove_element
-
-				mov		r9, [r9]			; else go to next
-				lea		r9, [r9 + 8]
-
-
-.compare2:	
-				cmp		r9 , 0 				; if list is NULL
-				je		.return
-
-				mov		rdi, [r9]			; rdi = &data
-				mov		rdi, [rdi]			; rdi = data		
-				call 	rdx					; call ft_cmp
-				mov		rdx, r12			; restore ft_cmp
-				mov		rsi, r11			; restore data_to_remove
-				cmp		rax, 0				; if data = data_to_remove
-				ret
-				je		.remove_element
-
-				mov		r9, [r9]			; else go to next
-				lea		r9, [r9 + 8]
-
-
-
-.remove_element:
-				mov		r10, r9				; save list
-				mov		rax, r10
-				ret
-				mov		rdi, [r9]			; data in rdi for free data
-				call	rcx					; free data
-				mov		rax, r10
-				ret
-				mov		r10, r9
-				mov		rax, r9
-				ret
-				cmp		r9, 0
-				je		.return
+				mov		rdi, [r10]			; mov *list->data in rdi
+				mov		rsi, r11			; mov data to remove in rsi
+				call	r12					; call ft_cmp
+				cmp		rax, 0				; if result is same, go to free_data & list
+				je		.list_to_free
+											; else go to next_list :
+				lea		r13, [r10 + 8]		; list = &(*list)->next
 				jmp		.compare
-				
-.remove_first:
-				lea		r10, [r9 + 8]		;	save next to **list
-				mov		rdi, r9				; 
-				call 	free				; free list
-				cmp		qword [r10], 0		; verif if next was NULL
-				je		.return
-				mov		r9, [r10]			; move first list in r9 for compare
+
+
+.list_to_free:
+				mov		rdi, [r10]
+				call	r14					; free_fct(*list->data)
+				mov		r15, [r10 + 8]		; save &(*list)->next
+
+				mov		rdi, r10				; free *list
+				call 	free
+
+				mov		qword [r13] , r15	; save in next before, &(*list)->next
 				jmp		.compare
-				
+
 
 .return:
+				pop		r10
+				pop		r11
+				pop		r12
+				pop	 	r13					; restore registers after use them
+				pop		r14
+				pop	 	r15
 				ret

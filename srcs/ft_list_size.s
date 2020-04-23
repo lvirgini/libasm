@@ -2,7 +2,7 @@
 	section	.txt
 
 ft_list_size:
-			xor 	rax, rax			
+			xor 	rax, rax
 			
 .loop:
 			cmp		rdi, 0			; verif if list then next is NULL

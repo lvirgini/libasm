@@ -1,11 +1,7 @@
-		global	ft_strcmp
-		section	.txt
+	global	ft_strcmp
+	section	.txt
 
 ft_strcmp:
-			push	rbp
-			mov		rbp, rsp
-			
-.compare:
 			movzx	rax, byte [rdi]		; get value *s1
 			movzx	rdx, byte [rsi]		; get value *s2
 			sub		rax, rdx			; compare values
@@ -14,8 +10,7 @@ ft_strcmp:
 			jz		.return				; if they are same and  = 0 it is the end \0
 			add		rdi, 1				; next index 
 			add		rsi, 1
-			jmp		.compare
+			jmp		ft_strcmp
 
 .return:		
-			pop		rbp
 			ret
